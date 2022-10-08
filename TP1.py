@@ -57,8 +57,8 @@ def alignment_prefix_suffix(A,B,match,missmatch,indel,horizontal):
     If not horizontal In the table of dynamic programming, A is the suquence of column and B is the sequence of row.
     If horizontal In the table of dynamic programming, A is the suquence of row and B is the sequence of column. 
     indel should be negative.
-    example: A = "ATCG", B = "ATCG", match = +4, missmatch = -4, indel = -8, horizontal = false
-    example2: A = "CCTTCT", B = "CTTTCAC", match = +1, missmatch = -1, indel = -1, horizontal = true
+
+    Decide if it is prefix-suffix alignment (horizontal = true) or suffix-prefix alignment(horizontal = false)
     '''
 
     if horizontal:
@@ -80,27 +80,27 @@ def alignment_prefix_suffix(A,B,match,missmatch,indel,horizontal):
     if horizontal:
         # if horizontal
         # fist row = 0
-        # fist column = 0, indel ,2*indel... 
+        # fist column = 0, indel ,2*indel...
         for i in range(lenA+1):
             T[i][0].set_score(indel*i)
             if i != 0:
-                # i = 0 -> T[0][0], no provenance 
+                # i = 0 -> T[0][0], no provenance
                 T[i][0].add_provenance(i-1,0)
         for j in range(lenB+1):
             pass
-            # pass means T[0][j] = Cell() 
+            # pass means T[0][j] = Cell()
 
 
     else:
         # fist column = 0
-        # fist row = 0, indel ,2*indel... 
+        # fist row = 0, indel ,2*indel...
         for i in range(lenA+1):
             pass
-            # pass means T[i][0] = Cell() 
+            # pass means T[i][0] = Cell()
         for j in range(lenB+1):
             T[0][j].set_score(indel*j)
             if j != 0:
-                # j = 0 -> T[0][0], no provenance 
+                # j = 0 -> T[0][0], no provenance
                 T[0][j].add_provenance(0,j-1)
 
     for i in range(1,lenA+1):
@@ -129,12 +129,12 @@ def alignment_prefix_suffix(A,B,match,missmatch,indel,horizontal):
         for i in range(1,lenA+1):
             if T[i][lenB].score > optimal_cell.score:
                 optimal_cell = T[i][lenB]
-    
+
 
     else:
         #find the max score in the last row
         optimal_cell = T[lenA][0]
-        
+
         for j in range(1,lenB+1):
             if T[lenA][j].score > optimal_cell.score:
                 optimal_cell = T[lenA][j]
@@ -168,11 +168,26 @@ def print_paths(paths):
             print(cell ,end = " ")
         print("")
 
+'''
+Even though this function will extract all the sequences in a fastq file, we assume that the FASTQ file will contain only
+two sequences.
+'''
+def readFile(path):
+    file = open(path,'r')
+    lines = file.readlines()
+    sequences = []
 
-# use example2
-table = alignment_prefix_suffix(A = "CCTTCT", B = "CTTTCAC", match = +1, missmatch = -1, indel = -1, horizontal = True)  
-# use example
-# table = alignment_prefix_suffix(A = "ATCG", B = "ATCG", match = +4, missmatch = -4, indel = -8, horizontal = False)
+    count = 0
+    for line in lines:
+        if count % 4 == 1:
+            sequences.append(line)
+        count+=1
+    return sequences
+
+sequences = readFile(input("Please enter the path of FASTQ file: \n"))
+
+# We assume here we only have to sequences
+table = alignment_prefix_suffix(A=sequences[0], B=sequences[1], match=+4, missmatch=-4, indel=-8, horizontal=False)
 
 print_table(table[0])
 print_table_score(table[0])
