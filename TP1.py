@@ -173,15 +173,16 @@ Even though this function will extract all the sequences in a fastq file, we ass
 two sequences.
 '''
 def readFile(path):
-    file = open(path,'r')
-    lines = file.readlines()
-    sequences = []
+    with open(path,'r') as file:
+        lines = file.readlines()
+        sequences = []
 
-    count = 0
-    for line in lines:
-        if count % 4 == 1:
-            sequences.append(line)
-        count+=1
+        count = 0
+        for line in lines:
+            if count % 4 == 1:
+                sequences.append(line)
+            count+=1
+
     return sequences
 
 sequences = readFile(input("Please enter the path of FASTQ file: \n"))
