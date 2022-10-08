@@ -9,7 +9,8 @@ print("Please wait while the program is calculating the distance matrix...")
 for i in range(len(sequences)):
     for j in range(len(sequences)):
         if i != j:
-            table, optimal = TP1.alignment_prefix_suffix(A=sequences[i], B=sequences[j], match=+4, missmatch=-4, indel=-8, horizontal=False)
+            table, optimal = TP1.alignment_prefix_suffix(A=sequences[i], B=sequences[j], match=+4, missmatch=-4,
+                                                         indel=-8, horizontal=False)
             matrix[i][j] = optimal.score
         else:
             matrix[i][j] = 0
@@ -30,24 +31,27 @@ print(pairs)
 G = nx.DiGraph()
 for pair in pairs:
     G.add_edge(pair[0], pair[1])
-
-# # Create a graph
 #
-
-#
-# G = nx.Graph()
-# for i in range(len(sequences)):
-#     G.add_node(i)
-#
-# for pair in pairs:
-#     G.add_edge(pair[0], pair[1])
-#
-# nx.draw(G, with_labels=True)
-# plt.show()
-#
-# # Create a list of connected components
-# connected_components = list(nx.connected_components(G))
+# # Draw the graph
+nx.draw(G, with_labels=True)
+plt.show()
 
 
+# Transitive reduction
+def transitive_reduction(G):
+    for v in G:
+        for w in G[v]:
+            for x in G[v]:
+                if x in G[w]:
+                    G.remove_edge(w, x)
+    return G
 
+
+G = transitive_reduction(G)
+
+
+# Draw the graph with space between nodes
+pos = nx.spring_layout(G, k = 0.5, iterations = 20)
+nx.draw(G, pos, with_labels=True)
+plt.show()
 
