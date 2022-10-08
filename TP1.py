@@ -78,9 +78,9 @@ def alignment_prefix_suffix(A,B,match,missmatch,indel,horizontal):
     #T[0][0] = Cell()  
 
     if horizontal:
-    # if horizontal
-    # fist row = 0
-    # fist column = 0, indel ,2*indel... 
+        # if horizontal
+        # fist row = 0
+        # fist column = 0, indel ,2*indel... 
         for i in range(lenA+1):
             T[i][0].set_score(indel*i)
             if i != 0:
@@ -90,10 +90,10 @@ def alignment_prefix_suffix(A,B,match,missmatch,indel,horizontal):
             pass
             # pass means T[0][j] = Cell() 
 
-    # fist column = 0
-    # fist row = 0, indel ,2*indel... 
 
     else:
+        # fist column = 0
+        # fist row = 0, indel ,2*indel... 
         for i in range(lenA+1):
             pass
             # pass means T[i][0] = Cell() 
@@ -145,7 +145,7 @@ def alignment_prefix_suffix(A,B,match,missmatch,indel,horizontal):
     return T, optimal_cell
             
 
-def print_table(T):    # for review provenance
+def print_table(T):    # for review of provenance
     numRow = len(T)
     numColumn = len(T[0])
     for i in range(numRow):
@@ -153,7 +153,7 @@ def print_table(T):    # for review provenance
             print(T[i][j],end = " ")
         print("")
 
-def print_table_score(T):   # for review score
+def print_table_score(T):   # for review of score
     numRow = len(T)
     numColumn = len(T[0])
     for i in range(numRow):
