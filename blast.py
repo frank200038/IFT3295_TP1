@@ -22,7 +22,7 @@ codon_table = {
         'TAC':'Y', 'TAT':'Y', 'TAA':'*', 'TAG':'*',
         'TGC':'C', 'TGT':'C', 'TGA':'*', 'TGG':'W',
     }
-ff
+
 def readFile(path):
     with open(path, "r") as f:
         lines = f.readlines()
