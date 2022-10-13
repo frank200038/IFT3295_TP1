@@ -3,6 +3,13 @@
 import sys
 import re
 
+'''
+Since this program is only meant to be used to find the answers to the questions, the code are not as structured
+as the code in TP1.py. The code in TP1.py is more structured and easier to read.
+
+When executing, please bear this in mind.
+'''
+
 # RNA Codon Table
 codon_table = {
         'ATA':'I', 'ATC':'I', 'ATT':'I', 'ATG':'M',

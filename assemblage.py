@@ -2,6 +2,13 @@ import TP1
 import networkx as nx
 import matplotlib.pyplot as plt
 
+'''
+Since this program is only meant to be used to find the answers to the questions, the code are not as structured
+as the code in TP1.py. The code in TP1.py is more structured and easier to read.
+
+When executing, please bear this in mind.
+'''
+
 sequences = TP1.readFile(input("Enter the path of the file: "))
 matrix = TP1.createMatrix(len(sequences), len(sequences))
 
