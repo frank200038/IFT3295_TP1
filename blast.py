@@ -47,6 +47,8 @@ def translate(dna):
 def findStartCodon(protein):
     return protein.find("M")
 
+
+
 # Find Protein sequence in translated protein sequences
 def findProtein(proteins, protein):
     for i in range(len(proteins)):
@@ -62,9 +64,9 @@ if __name__ == "__main__":
     print(findStartCodon(translate(dna)[0]))
     print(findStartCodon(translate(dna)[1]))
     print(findStartCodon(translate(dna)[2]))
-    with open(input("Enter File Path: "),"r") as file:
-        lines = file.readlines()
-        protein = "".join([line.strip() for line in lines[1:]])
-        print(findProtein(proteins, protein))
+    # with open(input("Enter File Path: "),"r") as file:
+    #     lines = file.readlines()
+    #     protein = "".join([line.strip() for line in lines[1:]])
+    #     print(findProtein(proteins, protein))
 
 

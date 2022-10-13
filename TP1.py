@@ -1,5 +1,20 @@
 from sys import argv
 
+'''
+Author: YuChen Hui, Yan Zhuang
+
+To run the program, you need to provide the following arguments:
+
+1. The path to the file containing the sequences
+
+Example:
+python3 TP1.py sequence.fq
+
+Here we assume that the fastq file contains only two sequences. (The program will not work if there are more than two 
+sequences in the file.)
+
+To change the match, missmatch and indel values, you need to change the values in the main function.
+'''
 
 class Cell():
     def __init__(self):
@@ -173,7 +188,6 @@ Even though this function will extract all the sequences in a fastq file, we ass
 two sequences.
 '''
 
-
 def readFile(path):
     with open(path, 'r') as file:
         lines = file.readlines()
@@ -190,13 +204,14 @@ def readFile(path):
 
 
 def main():
-    sequences = readFile(argv[1])
+    #sequences = readFile(argv[1])
 
     # We assume here we only have to sequences
-    table = alignment_prefix_suffix(A=sequences[0], B=sequences[1], match=+4, missmatch=-4, indel=-8, horizontal=False)
-
-    # print_table(table[0])
-    # print_table_score(table[0])
+    # Take first and second sequence as default.
+    #table = alignment_prefix_suffix(A=sequences[0], B=sequences[1], match=+4, missmatch=-4, indel=-8, horizontal=False)
+    table = alignment_prefix_suffix(A="CTTTCACC", B="CCTTCT", match=+4, missmatch=-4, indel=-8, horizontal=False)
+    print_table(table[0])
+    print_table_score(table[0])
     paths = find_optimal_path(table[0], table[1])
     print_paths(paths)
 

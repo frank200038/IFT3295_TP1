@@ -46,7 +46,19 @@ def transitive_reduction(G):
                     G.remove_edge(w, x)
     return G
 
+# Remove Double Egdes
+def remove_double_edges(G):
+    for v in G:
+        for w in G[v]:
+            if w in G[v]:
+                G.remove_edge(v, w)
+    return G
 
+# Remove cycles
+
+
+# G = remove_cycles(G)
+G = remove_double_edges(G)
 G = transitive_reduction(G)
 
 
