@@ -5,7 +5,7 @@ import re
 
 '''
 Since this program is only meant to be used to find the answers to the questions, the code are not as structured
-as the code in TP1.py. The code in TP1.py is more structured and easier to read.
+as the code in TP1.py. The code in TP1.py is more structured and easier to read. However, Comments are provided to better explain the code.
 
 When executing, please bear this in mind.
 '''

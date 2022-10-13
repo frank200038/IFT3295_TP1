@@ -208,8 +208,7 @@ def main():
 
     # We assume here we only have to sequences
     # Take first and second sequence as default.
-    #table = alignment_prefix_suffix(A=sequences[0], B=sequences[1], match=+4, missmatch=-4, indel=-8, horizontal=False)
-    table = alignment_prefix_suffix(A="CTTTCACC", B="CCTTCT", match=+4, missmatch=-4, indel=-8, horizontal=False)
+    table = alignment_prefix_suffix(A=sequences[0], B=sequences[1], match=+4, missmatch=-4, indel=-8, horizontal=False)
     print_table(table[0])
     print_table_score(table[0])
     paths = find_optimal_path(table[0], table[1])
