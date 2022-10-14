@@ -8,7 +8,7 @@ To run the program, you need to provide the following arguments:
 1. The path to the file containing the sequences
 
 Example:
-python3 TP1.py sequence.fq
+python3 Partie1.py sequence.fq
 
 Here we assume that the fastq file contains only two sequences. (The program will not work if there are more than two 
 sequences in the file.)
@@ -68,6 +68,32 @@ def find_optimal_path(T, optimal_cell):
     find_paths(optimal_cell, [])
     return result_paths
 
+
+def get_alignment(paths, A,B):
+    '''
+    A is the first sequence (column)
+    B is the second sequence (row)
+    alignment[0] is the alignment of A
+    alignment[1] is the alignment of B
+    '''
+    alignments = []
+    for path in paths:
+        previous_position = path[0].position
+        alignment = ["", ""]
+        for cell in path[1:]:
+            current_position = cell.position
+            if current_position[0] == previous_position[0] + 1 and current_position[1] == previous_position[1] + 1:
+                alignment[0] = alignment[0] + A[current_position[0]-1]
+                alignment[1] = alignment[1] + B[current_position[1]-1] 
+            if current_position[0] == previous_position[0] + 1 and current_position[1] == previous_position[1]:
+                alignment[0] = alignment[0] + "-"
+                alignment[1] = alignment[1] + B[current_position[1]-1]
+            if current_position[0] == previous_position[0] and current_position[1] == previous_position[1] + 1:
+                alignment[0] = alignment[0]+ A[current_position[0]-1]
+                alignment[1] = alignment[1]+ "-"
+            previous_position = current_position
+        alignments.append(alignment)
+    return alignments
 
 def alignment_prefix_suffix(A, B, match, missmatch, indel, horizontal):
     '''
@@ -183,6 +209,16 @@ def print_paths(paths):
         print("")
 
 
+def print_alignments(alignments):
+    for alignment in alignments:
+        print("One of the optimal alignments:")
+        print(alignment[0])
+        print(alignment[1])
+        print(len(alignment[0]))
+        print(len(alignment[1]))
+        print("the length of alignment is", len(alignment[0]))
+
+
 '''
 Even though this function will extract all the sequences in a fastq file, we assume that the FASTQ file will contain only
 two sequences.
@@ -204,15 +240,28 @@ def readFile(path):
 
 
 def main():
-    #sequences = readFile(argv[1])
+    sequences = readFile(argv[1])
 
     # We assume here we only have to sequences
     # Take first and second sequence as default.
-    table = alignment_prefix_suffix(A=sequences[0], B=sequences[1], match=+4, missmatch=-4, indel=-8, horizontal=False)
-    print_table(table[0])
-    print_table_score(table[0])
+    A = sequences[0].strip()
+    B = sequences[1].strip()
+    table = alignment_prefix_suffix(A=A, B=B, match=+4, missmatch=-4, indel=-8, horizontal=False)
+    # print("The table of dynamic programming is :")
+    # print_table_score(table[0])
+    print("-----------------------------------------------")
+    print("The optimal score is :")
+    print(table[1].score)
+    print("-----------------------------------------------")
+    print("All the optimal paths are:")
     paths = find_optimal_path(table[0], table[1])
     print_paths(paths)
+    print("-----------------------------------------------")
+    print("All the optimal alignments are:")
+    alignments = get_alignment(paths, A, B)
+    print_alignments(alignments)
+    print("-----------------------------------------------")
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     main()

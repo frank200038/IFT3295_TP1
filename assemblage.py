@@ -1,32 +1,42 @@
 
-import TP1
-import networkx as nx
+import Partie1
+#import networkx as nx
 import matplotlib.pyplot as plt
-import pydot
+import pickle
+#import pydot
 
 '''
 Since this program is only meant to be used to find the answers to the questions, the code are not as structured
-as the code in TP1.py. The code in TP1.py is more structured and easier to read. However, Comments are provided to better explain the code.
+as the code in Partie1.py. The code in Partie1.py is more structured and easier to read. However, Comments are provided to better explain the code.
 
 When executing, please bear this in mind.
 '''
 
-sequences = TP1.readFile(input("Enter the path of the file: "))
-matrix = TP1.createMatrix(len(sequences), len(sequences))
+#sequences = Partie1.readFile(input("Enter the path of the file: "))
+sequences = Partie1.readFile("F:\\yuchenxi\\UDEM\\diro\\IFT3295_bioinformatique\\TP1\\reads.fq")
+for i in range(len(sequences)):
+    sequences[i] = sequences[i].strip()
+matrix = Partie1.createMatrix(len(sequences), len(sequences))
 
 print("Please wait while the program is calculating the distance matrix...")
 
 for i in range(len(sequences)):
     for j in range(len(sequences)):
         if i != j:
-            table, optimal = TP1.alignment_prefix_suffix(A=sequences[i], B=sequences[j], match=+4, missmatch=-4,
+            table, optimal = Partie1.alignment_prefix_suffix(A=sequences[i], B=sequences[j], match=+4, missmatch=-4,
                                                          indel=-8, horizontal=False)
             matrix[i][j] = optimal.score
         else:
             matrix[i][j] = 0
 
 print("The matrix is: ")
-TP1.print_table(matrix)
+Partie1.print_table(matrix)
+# save as a pickle file
+with open('matrix_no_end_of_line.pickle', 'wb') as f:
+    pickle.dump(matrix, f)
+
+
+exit()
 
 # Select pairs that has a score equal or more than 80 from the matrix
 # When there is an alignment between i and j twice, we only select the one with the highest score
