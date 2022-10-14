@@ -214,8 +214,6 @@ def print_alignments(alignments):
         print("One of the optimal alignments:")
         print(alignment[0])
         print(alignment[1])
-        print(len(alignment[0]))
-        print(len(alignment[1]))
         print("the length of alignment is", len(alignment[0]))
 
 
