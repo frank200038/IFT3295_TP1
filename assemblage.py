@@ -1,9 +1,9 @@
 
 import Partie1
-#import networkx as nx
+import networkx as nx
 import matplotlib.pyplot as plt
 import pickle
-#import pydot
+
 
 '''
 Since this program is only meant to be used to find the answers to the questions, the code are not as structured
@@ -12,8 +12,8 @@ as the code in Partie1.py. The code in Partie1.py is more structured and easier 
 When executing, please bear this in mind.
 '''
 
-#sequences = Partie1.readFile(input("Enter the path of the file: "))
-sequences = Partie1.readFile("F:\\yuchenxi\\UDEM\\diro\\IFT3295_bioinformatique\\TP1\\reads.fq")
+sequences = Partie1.readFile(input("Enter the path of the file: "))
+
 for i in range(len(sequences)):
     sequences[i] = sequences[i].strip()
 matrix = Partie1.createMatrix(len(sequences), len(sequences))
@@ -30,13 +30,19 @@ for i in range(len(sequences)):
             matrix[i][j] = 0
 
 print("The matrix is: ")
+
 Partie1.print_table(matrix)
+
 # save as a pickle file
-with open('matrix_no_end_of_line.pickle', 'wb') as f:
-    pickle.dump(matrix, f)
+# with open('matrix_no_end_of_line.pickle', 'wb') as f:
+#     pickle.dump(matrix, f)
 
 
-exit()
+
+# Load pickle file. Save Time.
+# with open('matrix_no_end_of_line.pickle', 'rb') as f:
+#     matrix = pickle.load(f)
+
 
 # Select pairs that has a score equal or more than 80 from the matrix
 # When there is an alignment between i and j twice, we only select the one with the highest score
