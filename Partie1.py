@@ -209,6 +209,7 @@ def print_paths(paths):
         print("")
 
 
+# Only the aligned part will be shown, the rest will be omitted
 def print_alignments(alignments):
     for alignment in alignments:
         print("One of the optimal alignments:")
