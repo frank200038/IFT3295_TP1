@@ -54,14 +54,21 @@ def translate(dna):
 def findStartCodon(protein):
     return protein.find("M")
 
+# Retrieve the longest common substring
+def longestCommonSubstring(protein1, protein2):
+    m = [[0] * (1 + len(protein2)) for i in range(1 + len(protein1))]
+    longest, x_longest = 0, 0
+    for x in range(1, 1 + len(protein1)):
+        for y in range(1, 1 + len(protein2)):
+            if protein1[x - 1] == protein2[y - 1]:
+                m[x][y] = m[x - 1][y - 1] + 1
+                if m[x][y] > longest:
+                    longest = m[x][y]
+                    x_longest = x
+            else:
+                m[x][y] = 0
+    return protein1[x_longest - longest: x_longest]
 
-
-# Find Protein sequence in translated protein sequences
-def findProtein(proteins, protein):
-    for i in range(len(proteins)):
-        if protein in proteins[i]:
-            return i, proteins[i].find(protein)
-    return -1, -1
 
 if __name__ == "__main__":
     dna = readFile(input("Enter the path to the file: "))
@@ -71,9 +78,11 @@ if __name__ == "__main__":
     print(findStartCodon(translate(dna)[0]))
     print(findStartCodon(translate(dna)[1]))
     print(findStartCodon(translate(dna)[2]))
-    # with open(input("Enter File Path: "),"r") as file:
-    #     lines = file.readlines()
-    #     protein = "".join([line.strip() for line in lines[1:]])
-    #     print(findProtein(proteins, protein))
+    with open(input("Enter File Path: "),"r") as file:
+        lines = file.readlines()
+        protein = "".join([line.strip() for line in lines[1:]])
+        print(longestCommonSubstring(proteins[0], protein))
+        print(longestCommonSubstring(proteins[1], protein))
+        print(longestCommonSubstring(proteins[2], protein))
 
 
